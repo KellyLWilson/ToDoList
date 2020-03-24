@@ -32,6 +32,7 @@ var newList = JSON.parse(localStorage.getItem('stuff')) || [];
       {
         stuff: newList
       }
+
       
     );
     }
