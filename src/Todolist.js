@@ -6,9 +6,13 @@ import './index.css';
 class ToDoList extends React.Component {
     constructor(props) {
     super(props);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.clearAll = this.clearAll.bind(this);
     this.state = {
         list: '',
         items: [],
+        archiveItems: [],
       
     };
   }
@@ -23,14 +27,14 @@ async componentDidMount() {
 //window.localStorage.setItem('myCat:', 'Tom');
 //console.log("localStorage is:", storage)
 
-var newList = JSON.parse(localStorage.getItem('stuff')) || [];
+var newList = JSON.parse(localStorage.getItem('items')) || [];
 
 
 //await window.localStorage.setItem('list', JSON.stringify(this.state.list));
 
     this.setState(
       {
-        stuff: newList
+        items: newList
       }
 
       
@@ -38,8 +42,10 @@ var newList = JSON.parse(localStorage.getItem('stuff')) || [];
     }
 
     componentDidUpdate () {
-      localStorage.setItem('stuff', JSON.stringify(this.state.items));
+      localStorage.setItem('items', JSON.stringify(this.state.items));
+     
       //I think I need to send stuff to items.....array.push?
+      
     }
   
 
@@ -60,6 +66,17 @@ var newList = JSON.parse(localStorage.getItem('stuff')) || [];
       items: [...this.state.items, this.state.list]
     });
   }
+
+clearAll (e) {
+  e.preventDefault();
+  window.localStorage.clear(); 
+  this.setState({
+      
+    list: [],
+    items: []
+  });
+  
+}
 
   //stuff I tried first for local storage
 // saveToLocal = () => {
@@ -88,6 +105,7 @@ var newList = JSON.parse(localStorage.getItem('stuff')) || [];
         <form className="To Do List" onSubmit={this.onSubmit}>
           <input value={this.state.list} onChange={this.onChange} />
           <button>Submit</button>
+          <button onClick={this.clearAll}>Clear All</button>
         </form>
         <Display items={this.state.items} />
       </div>
@@ -98,7 +116,7 @@ var newList = JSON.parse(localStorage.getItem('stuff')) || [];
 
 //probably and easier way to do this but setting a constant to display 
 //the output of the list and then calling it in the export default
-const Display = props => (
+let Display = props => (
     <div className="border">
     <ul>
       {
