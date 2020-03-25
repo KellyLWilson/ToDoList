@@ -13,18 +13,16 @@ class ToDoList extends React.Component {
         list: '',
         items: [],
         archiveItems: [],
+        
       
     };
   }
 
 
 //local storage life cycle stuff   
-//something is still off because it shows in local storage but it doesn't stay if I 
-//refresh
+
 async componentDidMount() {
     
-//const storage = window.localStorage
-//window.localStorage.setItem('myCat:', 'Tom');
 //console.log("localStorage is:", storage)
 
 var newList = JSON.parse(localStorage.getItem('items')) || [];
@@ -87,7 +85,7 @@ clearAll (e) {
 //    }
 
 // ***Kelly To-Do***
-//finish the local storage stuffs
+
 //add strikethrough or checkboxes to remove item, delete item
 //add a button to clear all
 //add an archive array to keep all the items
